@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block%}
+
+    <div class="row">
+    {% for sport in sports %}
+        <div class="col-md-6">
+            <!-- Blah Blah -->
+        </div>
+    {% endfor %}
+</div>
+
+
+
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div>
+                        <div style="width: 300px; height: 300px">
+                            <img src="{{ user.profiles.profile_pic.url }}" class="viewprofileimage">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+
+                    <div>
+                        <h5>username: {{ user.username }}</h5>
+                        <p>primer nombre: {{ user.first_name }}</p>
+                        <p>apellido: {{ user.last_name }}</p>
+                        <p>email: {{ user.email }}</p>
+                        <p>descripcion: {{ user.profiles.description }}</p>
+                        <p>genero: {{ user.profiles.gender }}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

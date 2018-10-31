@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+{% load bootstrap4 %}
+{% block body_block %}
+
+{% block serach_block %}
+{% endblock %}
+
+<div class="jumbotron main_wrapper_jumbotron">
+
+<div class="container">
+    <div class="jumbotron">
+        <div align="center">
+            <p>Crear Tip</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="inputEmail4">Título</label>
+                    <p>{{ form.title }}</p>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label>Imagen</label>
+{#                    <input type="file" accept="image/*" onchange="loadFile(event)" value="{{ form.post_pic }}">#}
+                    <p accept="image/*" onchange="loadFile(event)">{{ form.post_pic }}</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="Texto">Texto</label>
+                    <p>{{ form.info }}</p>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    <img id="output" style="width: 170px; height: 200px; object-fit: cover"/>
+                </div>
+            </div>
+            <div class="alert alert-danger" role="alert">
+
+            Tu Tip será removido si obtiene más  de 105 votos en contra <button type="button" class="btn btn-light btn-lg disabled"><img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30"></button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Crear</button>
+
+
+        </form>
+    </div>
+
+</div>
+</div>
+
+
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
+
+{% endblock %}

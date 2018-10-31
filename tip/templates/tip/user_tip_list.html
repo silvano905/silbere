@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="row">
+        {% if post_list %}
+            {% for post in post_list %}
+            <div class="col-lg-4">
+                <div>
+                      <div class="card text-white bg-dark mb-3">
+                            {% if post.post_pic %}
+                                <img class="card-img-top silvano" src="{{ post.post_pic.url }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="text-center"><a href="{% url 'tips:tip_detail' pk=post.id %}">{{ post.title }}</a></p>
+                                    <p class="card-text">Publicado en: {{post.created_date|date:"d /m/ Y"}}</p>
+                                    <div class="card-text">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        {% if user.is_authenticated and post.author == user %}
+                                            <a href="{% url 'tips:tip_remove' pk=post.pk%}" class="btn btn-outline-danger">Borrar</a>
+                                            <a href="{% url 'tips:tip_edit' pk=post.pk%}" class="btn btn-outline-info">Editar</a>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <p class="card-text"><a href="{% url 'comments:add_comment_to_post' pk=post.pk %}" class="btn btn-light">Agregar Comentario</a></p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {{ post.likes.count }} <img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30" class="penis_icon">
+                                    {{ post.down_votes.count }} <img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30" class="penis_icon">
+                                    {{ post.comments.count }} comentario{{ post.comments.count|pluralize }}
+                                </div>
+                            {% else %}
+                                <div class="card-body">
+                                    <p class="text-center"><a href="{% url 'tips:tip_detail' pk=post.id %}">{{ post.title }}</a></p>
+                                    <p class="card-text">{{ post.post_info_summary }}</p>
+                                    <p class="card-text">Publicado en: {{post.created_date|date:"D M Y"}}</p>
+                                    <div class="card-text">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        {% if user.is_authenticated and post.author == user %}
+                                            <a href="{% url 'tips:tip_remove' pk=post.pk%}" class="btn btn-outline-danger">Remover</a>
+                                            <a href="{% url 'tips:tip_edit' pk=post.pk%}" class="btn btn-outline-info">Editar</a>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <p class="card-text"><a href="{% url 'comments:add_comment_to_post' pk=post.pk %}" class="btn btn-light">Agregar Comentario</a></p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {{ post.likes.count }} <img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30" class="penis_icon">
+                                    {{ post.down_votes.count }} <img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30" class="penis_icon">
+                                    {{ post.comments.count }} comentario{{ post.comments.count|pluralize }}
+                                </div>
+                        {% endif %}
+                        </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="container">
+                <div class="jumbotron">
+                    <div align="center">
+                        <p>No Tips</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block %}
+
+
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="container" align="center">
+        <div class="row">
+            {% if groupmessage_list %}
+                {% for members in groupmessage_list %}
+                    <div class="col-lg-4" style="padding-bottom: 5px">
+                        <div>
+                            <div class="card" style="width: 18rem; background-color: #4f5b69">
+                                <div class="card-body">
+                                    <p class="card-text"><a href="{% url 'accounts:detail' pk=members.member.pk %}">{{ members.member.user }}</a></p>
+                                    <div class="card-text">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="{% url 'message:detail_messages' pk=members.member.user.profiles.pk %}" class="btn btn-outline-warning">Ver Mensajes</a>
+                                            <a href="{% url 'group_message:member_remove' pk=members.member.pk %}" class="btn btn-outline-danger">Remover</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="container">
+                    <div class="jumbotron">
+                        <div align="center">
+                            <p>No Mensajes</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

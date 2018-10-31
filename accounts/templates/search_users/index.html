@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+{% block body_block %}
+<div class="jumbotron main_wrapper_jumbotron">
+    {% if request.user.profiles %}
+
+        {% if object_list %}
+            <div class="container">
+                <div class="jumbotron">
+                    <div align="center">
+                        <p><strong>{{ object_list.count }} Usuario{{ object_list.count|pluralize }} econtrado</strong></p>
+                        <div class="row">
+                        {% for user in object_list %}
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            {% if user.profile_pic %}
+                                <div class="card" style="width: 10rem; height: 16rem">
+                                    <img class="card-img-top likepic" src="{{ user.profile_pic.url }}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">  <a href="{{user.pk}}">{{ user.user }}</a></h5>
+                                    </div>
+                                </div>
+                                <br>
+                            {% else %}
+                                <h5 class="card-title">  <a href="{{user.pk}}">{{ user.user }}</a></h5>
+                            {% endif %}
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+        <div class="container">
+           <div class="jumbotron">
+               <div align="center">
+                   <p>No Resultados</p>
+               </div>
+           </div>
+        </div>
+        {% endif %}
+
+
+    {% else %}
+        <div class="container">
+            <div class="jumbotron">
+                <div align="center">
+                    <p>Necesitas crear un perfil antes de buscar usuarios</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

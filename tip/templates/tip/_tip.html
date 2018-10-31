@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<div class="jumbotron main_wrapper_jumbotron">
+
+<div class="container">
+
+    <div class="card text-white bg-dark mb-3">
+    {% if post.post_pic %}
+        <img class="card-img-top tip_image" src="{{ post.post_pic.url }}" alt="Card image cap">
+    {% endif %}
+        <div class="card-body">
+            <p class="text-center" style="color: #afd9ee">{{ post.title }}</p>
+            <p class="card-text">{{ post.info }}</p>
+            <p class="card-title"><a href="{% url 'tips:for_user' username=post.author.username %}">@{{ post.author.username }}</a></p>
+            <p class="card-text">Publicado en: {{post.created_date|date:"m /d/ Y"}}</p>
+            <div class="card-text">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    {% if request.user.profiles %}
+                        <a href="{% url 'comments:add_comment_to_post' pk=post.pk %}" class="btn btn-light">Agregar Comentario</a>
+                    {% else %}
+                        <a href="{% url 'tips:createprofilebeforeview'%}" class="btn btn-light">Agregar Comentario</a>
+                    {% endif %}
+
+                    {% if post.author.username == request.user.username %}
+                    {% else %}
+                        <form method="POST" class="post-form" action="{% url 'tips:like_tip' %}">
+                            {% csrf_token %}
+                            {% if is_liked %}
+                                <button type="submit" class="btn btn-outline-danger" name="post_id" value="{{ post.id }}"><img src="http://drive.google.com/uc?export=view&id=1jUpUJexdU2hrIBtfTVZSPQPfYHkpdgqT" width="30" height="30"></button>
+                            {% else %}
+                                {% if request.user.profiles %}
+                                    <button type="submit" class="btn btn-outline-success" name="post_id" value="{{ post.id }}"><img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30"></button>
+                                {% else %}
+                                    <a href="{% url 'tips:createprofilebeforeview'%}"><button type="button" class="btn btn-outline-success"><img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30"></button></a>
+                                {% endif %}
+                            {% endif %}
+                        </form>
+                    {% endif %}
+
+                    {% if request.user.profiles.rey_reina %}
+                        {% if post.author.username == request.user.username %}
+                        {% else %}
+                            <form method="POST" class="post-form" action="{% url 'tips:down_tip' %}">
+                                {% csrf_token %}
+                                {% if is_down %}
+                                    <button type="submit" class="btn btn-light" name="post_id" value="{{ post.id }}"><img src="http://drive.google.com/uc?export=view&id=10oGeaYj6l8gBDF7w9mHuXRTzhqqCNipE" width="30" height="30"></button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-light" name="post_id" value="{{ post.id }}"><img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30"></button>
+                                {% endif %}
+                            </form>
+                        {% endif %}
+                     {% else %}
+                        <div class="btn-group dropright">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30" class="penis_icon">
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <div class="crown_required_dropdown"><img src="http://drive.google.com/uc?export=view&id=1CyvYb3CgaIy4NFERvty_k8IGFV9BIfN_" width="50" height="50">
+                                    <p class="crown_required_dropdown">Necesitas una corona</p>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'tips:get_crown'%}"><button  type="button" class="btn btn-primary">Info</button></a>
+                                </div>
+                            </div>
+                        </div>
+                     {% endif %}
+                </div>
+            </div>
+            {% if user.is_authenticated and post.author == user %}
+                <br>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    {% if user.is_authenticated and post.author == user %}
+                        <a href="{% url 'tips:tip_remove' pk=post.pk%}" class="btn btn-outline-danger">Remover</a>
+                        <a href="{% url 'tips:tip_edit' pk=post.pk%}" class="btn btn-outline-info">Editar</a>
+                    {% endif %}
+                    </div>
+            {% endif %}
+        </div>
+        <div class="card-footer text-muted">
+            {{ post.likes.count }} <img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30" class="penis_icon">
+            {{ post.down_votes.count }} <img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30" class="penis_icon">
+            {{ post.comments.count }} comentario{{ post.comments.count|pluralize }}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="row justify-content-center">
+                <div>
+                    {% if post.comments.count %}
+                        {% for comments in comment_list %}
+                            {% if comments.post == post %}
+                                <div class="col-md-12 col-sm-12">
+                                     <div class="card" style="width: 18rem;">
+                                        <div class="card-body">
+                                            {% if request.user != comments.author %}
+                                                {% if request.user.profiles %}
+                                            <p class="card-text"><a href="{% url 'accounts:detail' pk=comments.author.profiles.pk %}">{{ comments.author }}</a> </p>
+                                                {% else %}
+                                                <a href="{% url 'tips:createprofilebeforeview'%}">{{ comments.author }}</a>
+                                                {% endif %}
+                                                {% else %}
+                                                <p>{{ comments.author }}</p>
+                                                {% endif %}
+                                            <p class="card-text">{{ comments.text }}</p>
+                                        </div>
+                                        <div class="card-footer text-muted"><p>Date: {{ comments.created_date|date:"d /m/ Y" }}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="container">
+                            <div class="jumbotron">
+                                <div align="center">
+                                    <p>No Commentarios</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div>
+                <div class="row">
+                    {% if post.members.all %}
+                        {% for x in post.members.all %}
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="row justify-content-center">
+                                    {% if x.user.profiles.profile_pic %}
+                                        <div class="card" style="width: 10rem; height: 18rem">
+                                            <img class="card-img-top likepic" src="{{ x.user.profiles.profile_pic.url }}" alt="Card image cap">
+                                            <div class="card-body">
+                                                {% if request.user != x.user %}
+                                                    {% if request.user.profiles %}
+                                                        <h5 class="card-title"><a href="{% url 'accounts:detail' pk=x.user.profiles.id %}">{{ x }}</a></h5>
+                                                    {% else %}
+                                                      <h5 class="card-title"><a href="{% url 'tips:createprofilebeforeview'%}">{{ x }}</a></h5>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <h5 class="card-title">{{ x }}</h5>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="container">
+                            <div class="jumbotron">
+                                <div align="center">
+                                    <p>No Paradas</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>

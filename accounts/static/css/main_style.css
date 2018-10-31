@@ -1,0 +1,62 @@
+.silvano {
+    width: 400px; /* You can set the dimensions to whatever you want */
+    height: 300px;
+    object-fit: cover;
+}
+
+.friends {
+    width: 150px; /* You can set the dimensions to whatever you want */
+    height: 250px;
+    object-fit: cover;
+}
+
+.detailpic {
+    width: 400px; /* You can set the dimensions to whatever you want */
+    height: 500px;
+    object-fit: cover;
+}
+
+.likepic{
+    width: 80px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.pagination_numbers{
+    font-size: 30px;
+    color: white;
+}
+
+.penis_icon{
+    margin-right: 5px;
+    padding-right: 5px;
+}
+
+
+.tip_image {
+    width: 400px; /* You can set the dimensions to whatever you want */
+    height: 500px;
+    object-fit: contain;
+}
+.main_wrapper_jumbotron{
+    background-color: #0B1A12 !important;
+}
+
+
+.crown_required_dropdown{
+    margin-left: 5px;
+}
+
+.viewprofileimage{
+    width: 298px;
+    height: 298px;
+    object-fit: contain;
+}
+
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 22px !important;
+  }
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block %}
+    <div class="jumbotron main_wrapper_jumbotron">
+        <div class="container">
+        <div class="jumbotron">
+            <div class="d-flex justify-content-center">
+
+  <form method="post">
+
+      {% csrf_token %}
+      <p>Estas seguro que quieres borrar " {{object}} "?</p>
+      <button type="submit" class="btn btn-danger">Borrar</button>
+
+  </form>
+            </div>
+        </div>
+        </div>
+</div>
+{% endblock %}

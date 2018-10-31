@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+{% load bootstrap4 %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class="jumbotron">
+
+        <h1 class="text-center">Nuevo Mensaje</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+
+
+            {% csrf_token %}
+
+{#                {% bootstrap_form form %}#}
+            <div align="center">
+
+            <div class="form-group">
+                <label for="{{ form.text.id_for_label }}">{{ form.text }}</label>
+             </div>
+            <div class="form-group">
+                <label for="{{ form.picture.id_for_label }}"><input onchange="PreviewImage();" type="file" id="files" value="{{ form.picture }}"></label>
+            </div>
+            <div class="form-group">
+                <img id="image" style="width: 170px; height: 200px; object-fit: cover" />
+            </div>
+
+
+            <div class="form-group">
+                {% bootstrap_form form2 %}
+                {% bootstrap_form form3 %}
+
+            </div>
+            <button type="submit" class="btn btn-dark">Enviar</button>
+                </div>
+        </form>
+
+
+
+    </div>
+</div>
+
+
+
+     <script type="text/javascript">
+        document.getElementById("files").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("image").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+    </script>
+
+{% endblock %}

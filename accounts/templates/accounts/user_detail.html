@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block%}
+    <div class="jumbotron main_wrapper_jumbotron">
+        <div class="container">
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+              </div>
+            {% endfor %}
+
+            <div class="d-flex justify-content-center">
+                <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+                    {% if user_list.profile_pic %}
+                        <img class="card-img-top silvano" src="{{ user_list.profile_pic.url }}" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="card-text">username: {{ user_list.user.username }}</p>
+                        <p class="card-text">descripcion: {{ user_list.description }}</p>
+                        <div align="left">
+                            {% if request.user in user_list.blocked_users.all or user_list.user in request.user.profiles.blocked_users.all%}
+                                <p>No puedes mensajear oh agregar como amigo</p>
+                            {% else %}
+                                <a href="{% url 'message:add_message' pk=user_list.pk %}" class="btn btn-outline-primary btn-sm">Mensajear</a>
+                                <br>
+                                <br>
+
+                                <form method="POST" action="{% url 'friends:add_friend' pk=user_list.pk %}">
+                                    {% csrf_token %}
+                                    {{ form }}
+                                    <input class="btn btn-outline-success btn-sm" type="submit" value="Agregar amigo">
+                                </form>
+                            {% endif %}
+
+                            <form method="POST" action="{% url 'message:block_user' %}">
+                                {% csrf_token %}
+                                {% if is_blocked %}
+                                    <button type="submit" class="btn btn-light btn-sm" name="post_id" value="{{ user_list.pk }}">Desbloquear</button>
+                                {% else %}
+                                    <br>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" name="post_id" value="{{ user_list.pk }}">Bloquear</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        {% if user_list.gender == 'mujer' %}
+
+                            <div class="dropdown-divider"></div>
+
+                            <form method="POST" class="post-form" action="{% url 'accounts:point_crown'%}">
+                                {% csrf_token %}
+                                {% if is_admirador %}
+                                    <p>Quitar el punto para Corona?</p>
+                                    <button type="submit" class="btn btn-dark" name="profile_pk" value="{{ user_list.pk }}"><img src="http://drive.google.com/uc?export=view&id=1DP9VdMF3iIyDNubJOyLiWW9zKWxZrIkt" width="40" height="40"></button>
+                                    <p>{{ user_list.points.count }}/69</p>
+                                {% else %}
+                                    <p>Dar punto para corona</p>
+                                    <button type="submit" class="btn btn-dark" name="profile_pk" value="{{ user_list.pk }}"><img src="http://drive.google.com/uc?export=view&id=16fqZqtD6u2jLeRQYVk7cj_APWgNGMezU" width="40" height="40"></button>
+                                    <p>{{ user_list.points.count }}/69</p>
+
+                                {% endif %}
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            {% for post in post_list %}
+
+                <div class="col-md-4">
+                    <div>
+                        <div class="card text-white bg-dark mb-3">
+                            {% if post.post_pic %}
+                                <img class="card-img-top silvano" src="{{ post.post_pic.url }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="text-center"><a href="{% url 'tips:tip_detail' pk=post.id %}">{{ post.title }}</a></p>
+                                    <p class="card-text"><a href="{% url 'tips:for_user' username=post.author.username %}">@{{ post.author.username }}</a></p>
+                                </div>
+                                <div class="card-footer text-muted">
+
+                                    {{ post.likes.count }} <img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30" class="penis_icon">
+                                    {{ post.down_votes.count }} <img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30" class="penis_icon">
+                                    {{ post.comments.count }} comentario{{ post.comments.count|pluralize }}
+                                </div>
+
+                            {% else %}
+                                <div class="card-body">
+                                    <p class="text-center"><a href="{% url 'tips:tip_detail' pk=post.id %}">{{ post.title }}</a></p>
+                                    <p class="card-text">{{ post.post_info_summary }}</p>
+                                    <p class="card-text"><a href="{% url 'tips:for_user' username=post.author.username %}">@{{ post.author.username }}</a></p>
+
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {{ post.likes.count }} <img src="http://drive.google.com/uc?export=view&id=1iyEMUO63gvEuYu1zLYWi3SpUzCbU6tWs" width="30" height="30" class="penis_icon">
+                                    {{ post.down_votes.count }} <img src="http://drive.google.com/uc?export=view&id=1IwWo_KmqZ_DSPiM1hf-7INmrzxl7VNye" width="30" height="30" class="penis_icon">
+                                    {{ post.comments.count }} comentario{{ post.comments.count|pluralize }}
+
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

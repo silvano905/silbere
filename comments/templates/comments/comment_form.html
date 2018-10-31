@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+{% load bootstrap4 %}
+{% block body_block %}
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="container">
+<div class="jumbotron">
+      <h1 class="text-center">Nuevo Comentario</h1>
+
+  <form method="POST">
+
+      <div class="form-group">
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+
+</div>
+<button type="submit" class="btn btn-dark">Enviar</button>
+  </form>
+
+
+</div>
+</div>
+
+
+</div>
+
+{% endblock %}

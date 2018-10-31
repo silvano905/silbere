@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block %}
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="container">
+        <div class="jumbotron">
+            <div align="center">
+                <h3>Estas seguro que quieres desactivar tu cuenta?</h3>
+                <a href="{% url 'home' %}" class="btn btn-danger">No</a>
+                <a href="{% url 'accounts:deactivate' %}" class="btn btn-primary">Si</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'main.html' %}
+{% block body_block%}
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="container">
+        <div class="jumbotron" style="background-color: #4f5b69">
+<div class="d-flex justify-content-center">
+
+    <div>
+        {% if user_list.profile_pic %}
+
+            <img src="{{ user_list.profile_pic.url }}" width="240px">
+            <br>
+            <br>
+            <p>username: {{ user_list.user.username }}</p>
+            <p>descripcion: {{ user_list.description }}</p>
+            <form method="POST" action="{% url 'message:block_user' %}">
+                {% csrf_token %}
+                    {% if is_blocked %}
+                        <button type="submit" class="btn btn-light" name="post_id" value="{{ user_list.pk }}">Desbloquear</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-outline-danger" name="post_id" value="{{ user_list.pk }}">Bloquear</button>
+                    {% endif %}
+            </form>
+            <br>
+
+        {% endif %}
+    </div>
+</div>
+        </div>
+    </div>
+
+
+
+    <br>
+
+
+    {% if request.user not in user_list.blocked_users.all and user_list.user not in request.user.profiles.blocked_users.all%}
+
+        {% for mm in both_lists %}
+
+
+            <div class="row justify-content-center">
+        <div class="col-4">
+            {% if request.user == mm.author%}
+                <p class="p-3 mb-2 bg-light text-dark">{{ mm.author }}:  <strong>{{ mm.text }}</strong></p>
+                {% if mm.picture %}
+                    <img src="{{ mm.picture.url }}" style="width: 100%; height: auto;">
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-4">
+            {% if user_list.user == mm.author%}
+                <p class="p-3 mb-2 bg-dark text-white">{{ mm.author }}:  <strong>{{ mm.text }}</strong></p>
+                {% if mm.picture %}
+                    <img src="{{ mm.picture.url }}" style="width: 100%; height: auto;">
+                {% endif %}
+            {% endif %}
+        </div>
+      </div>
+
+
+        {% endfor %}
+
+        {% if both_lists %}
+
+        <div class="d-flex justify-content-center">
+        <a href="{% url 'message:add_message' pk=user_list.pk %}" class="btn btn-primary">Responder</a>
+        </div>
+
+        {% else %}
+            <div class="container">
+                <div class="jumbotron">
+                    <div align="center">
+                         <p><strong>No Mensajes</strong></p>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    {% else %}
+        <div class="container">
+            <div class="jumbotron">
+                <div align="center"><p>Bloqueado</p></div>
+            </div>
+        </div>
+
+        {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+
+{% block body_block %}
+
+<div class="jumbotron main_wrapper_jumbotron">
+    <div class="container" align="center">
+        <div class="row">
+            {% if friend_list %}
+                {% for friends in friend_list %}
+                    <div class="col-lg-4" style="padding-bottom: 5px">
+                        <div>
+                            <div class="card bg-light mb-3" style="width: 18rem;">
+                                <img class="card-img-top silvano" src="{{ friends.friend.profile_pic.url }}">
+                                <div class="card-body">
+                                    <p class="card-title">{{ friends.friend }}</p>
+                                    <div class="card-text">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="{% url 'message:add_message' pk=friends.friend.id %}" class="btn btn-outline-primary">Enviar Mensaje</a>
+                                            <a href="{% url 'message:detail_messages' pk=friends.friend.id %}" class="btn btn-outline-warning">Ver Mensajes</a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <p class="card-text"><a href="{% url 'friends:friend_remove' pk=friends.friend.id %}" class="btn btn-outline-danger">Remover</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="container">
+                    <div class="jumbotron">
+                        <div align="center">
+                            <p>No Amigos</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{##}
+{#<div class="d-flex justify-content-center">#}
+{##}
+{#    <h2>Amigos</h2>#}
+{#</div>#}
+{#    <br>#}
+{##}
+{#     <div class="container">#}
+{#    <div class="row">#}
+{##}
+{#    {% for friends in friend_list %}#}
+{#    <div class="col-md-4">#}
+{##}
+{##}
+{#        <div class="card bg-light mb-3">#}
+{#            <img class="card-img-top friends" src="{{ friends.friend.profile_pic.url }}" alt="Card image cap">#}
+{#            <div class="card-body">#}
+{#                <p class="card-title">{{ friends.friend }}</p>#}
+{#                <div class="card-text">#}
+{#                    <div class="btn-group" role="group" aria-label="Basic example">#}
+{#                        <a href="{% url 'message:add_message' pk=friends.friend.id %}" class="btn btn-outline-primary">Enviar Mensaje</a>#}
+{#                        <a href="{% url 'message:detail_messages' pk=friends.friend.id %}" class="btn btn-outline-warning">Ver Mensajes</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <br>#}
+{#                <p class="card-text"><a href="{% url 'friends:friend_remove' pk=friends.friend.id %}" class="btn btn-outline-danger">Remover</a></p>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{#        {% if forloop.counter|divisibleby:"3" and not forloop.last %}#}
+{#            </div><div class="row">#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+
+{#        {% if friends.friend.profile_pic %}#}
+{##}
+{#        <img src="{{ friends.friend.profile_pic.url }}" width="240px">#}
+{#    {% endif %}#}
+{##}
+{#        <p>{{ friends.friend }}</p>#}
+{#        <div class="btn-group" role="group" aria-label="Basic example">#}
+{#        <a href="{% url 'message:add_message' pk=friends.friend.id %}" class="btn btn-light">Message {{ friends.friend }}</a>#}
+{#        <a href="{% url 'accounts:detail_messages' pk=friends.friend.id %}" class="btn btn-light">View Messages</a>#}
+{#        <a href="{% url 'friends:friend_remove' pk=friends.friend.id %}" class="btn btn-light">Remove {{ friends.friend }}</a>#}
+{#        </div>#}
+{##}
+{#        <br>#}
+
+
+
+
+
+{% endblock %}

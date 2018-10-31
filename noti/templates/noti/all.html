@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends "main.html" %}
+
+{% block serach_block %}
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="container">
+    <div class="jumbotron">
+
+    {% if notifications %}
+
+          {% for notification in notifications %}
+
+        <p><a href="{% url 'noti:delete' pk=notification.id%}" class="btn btn-outline-danger">X</a>   {{ notification }}
+        </p>
+
+
+          {% endfor %}
+
+    {% else %}
+        <div class="container">
+            <div align="center">
+                <p><strong>No Notificaciones</strong></p>
+            </div>
+        </div>
+    {% endif %}
+
+    </div>
+    </div>
+
+
+{% endblock %}
