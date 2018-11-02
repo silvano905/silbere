@@ -9,5 +9,5 @@ class MakeMessageForm(forms.ModelForm):
         fields = ('text', 'picture')
 
         widgets = {
-            'text': Textarea(attrs={'cols': 50, 'rows': 3, 'placeholder': 'Di hola'}),
+            'text': Textarea(attrs={'class':'form-control'}),
         }

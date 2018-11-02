@@ -4,8 +4,8 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>BuenSexo</title>
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1" name="viewport" >
+    <title>Silbere</title>
     <link rel="stylesheet" href="{% static 'css/main_style.css' %}"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -16,8 +16,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     {% if user.is_authenticated %}
 
-     <a class="navbar-brand" href="{% url 'tips:list'%}">
-     <p>BuenSexo</p>
+    <a class="navbar-brand" href="{% url 'tips:list'%}">
+        <img src="http://drive.google.com/uc?export=view&id=1wMCfOAQBbYiHxPS4CjJXNiMtSQU9vugS" width="30" height="30" alt="SB">
     </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbarXs">

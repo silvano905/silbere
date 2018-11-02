@@ -15,6 +15,10 @@ class UserFormProfile(forms.ModelForm):
         model = Profile
         fields = ('gender', 'description', 'profile_pic')
 
+        widgets = {
+            'description': TextInput(attrs={'class': 'form-control'})
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['description'].label = "Descripción"

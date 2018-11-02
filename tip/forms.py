@@ -10,6 +10,6 @@ class MakePostForm(forms.ModelForm):
         fields = ['title', 'post_pic', 'info']
 
         widgets = {
-            'info': Textarea(attrs={'placeholder': 'info'}),
+            'info': Textarea(attrs={'class': 'form-control'}),
             'title': TextInput(attrs={'class': 'form-control'})
         }

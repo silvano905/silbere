@@ -4,6 +4,13 @@
     object-fit: cover;
 }
 
+.silvanox {
+    width: 400px; /* You can set the dimensions to whatever you want */
+    height: 300px;
+    object-fit: cover;
+}
+
+
 .friends {
     width: 150px; /* You can set the dimensions to whatever you want */
     height: 250px;
@@ -48,7 +55,7 @@
 }
 
 .viewprofileimage{
-    width: 298px;
+    max-width: 298px;
     height: 298px;
     object-fit: contain;
 }
@@ -57,6 +64,13 @@
 /* On screens that are 600px or less, set the background color to olive */
 @media screen and (max-width: 600px) {
   body {
-    font-size: 22px !important;
+    font-size: 20px !important;
   }
+
+    .viewprofileimage{
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        }
+
 }
