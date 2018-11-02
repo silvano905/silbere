@@ -38,18 +38,18 @@
         {% for mm in both_lists %}
 
 
-            <div class="row justify-content-center">
-        <div class="col-lg-6 col-sm-6">
+            <div class="row justify-content-between">
+        <div class="col-6">
             {% if request.user == mm.author%}
-                <p class="p-3 mb-2 bg-light text-dark"><p style="width: 30px; height: 30px; display: inline"><a href="{% url 'accounts:detail' pk=mm.author.profiles.pk %}"><img src="{{ mm.author.profiles.profile_pic.url }}" style="width: 100%; height: auto; object-fit: contain"></a></p><strong>{{ mm.text }}</strong>
+                <p class='text-dark'><a href="{% url 'accounts:detail' pk=mm.author.profiles.pk %}"><img src="{{ mm.author.profiles.profile_pic.url }}" style="max-width: 30px; max-height: 30px; object-fit: contain"></a><br><strong>{{ mm.text }}</strong></p>
                 {% if mm.picture %}
                     <img src="{{ mm.picture.url }}" style="width: 100%; height: auto;">
                 {% endif %}
             {% endif %}
         </div>
-        <div class="col-lg-6 col-sm-6">
+        <div class="col-6">
             {% if user_list.user == mm.author%}
-                <p class="p-3 mb-2 bg-dark text-white">{{ mm.author }}:  <strong>{{ mm.text }}</strong></p>
+                <p class='text-white'><a href="{% url 'accounts:detail' pk=mm.author.profiles.pk %}"><img src="{{ user_list.user.profiles.profile_pic.url }}" style="max-width: 30px; max-height: 30px; object-fit: contain"></a><br><strong>{{ mm.text }}</strong></p>
                 {% if mm.picture %}
                     <img src="{{ mm.picture.url }}" style="width: 100%; height: auto;">
                 {% endif %}
@@ -63,6 +63,7 @@
         {% if both_lists %}
 
         <div class="d-flex justify-content-center">
+
         <a href="{% url 'message:add_message' pk=user_list.pk %}" class="btn btn-primary">Responder</a>
         </div>
 
