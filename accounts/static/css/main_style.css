@@ -4,6 +4,12 @@
     object-fit: cover;
 }
 
+.silvanox {
+    width: 400px; /* You can set the dimensions to whatever you want */
+    height: 300px;
+    object-fit: cover;
+}
+
 .friends {
     width: 150px; /* You can set the dimensions to whatever you want */
     height: 250px;
@@ -48,7 +54,7 @@
 }
 
 .viewprofileimage{
-    width: 298px;
+    max-width: 298px;
     height: 298px;
     object-fit: contain;
 }
@@ -59,4 +65,17 @@
   body {
     font-size: 22px !important;
   }
+    .viewprofileimage{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    }
+
+    .silvanox {
+        width: 200px; /* You can set the dimensions to whatever you want */
+        height: 200px;
+        object-fit: cover;
+    }
 }
+
+

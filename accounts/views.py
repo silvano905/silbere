@@ -33,7 +33,7 @@ def crate_user_profile(request):
 
             form.save(commit=True)
 
-            return render(request, 'main.html')
+            return render(request, 'tip/tip_list.html')
         else:
             form = UserFormProfile()
 
@@ -49,10 +49,12 @@ def create_user_form(request):
         if form.is_valid():
             form.save(commit=False)
             email_user = form.cleaned_data['email']
+            username = form.cleaned_data['username'].lower()
+            form.username = username
             form.save(commit=True)
 
             msg_html = render_to_string('registration/welcome.html')
-            send_mail('SILBERE', 'Bienvenido!', 'www.silbere.com', [email_user], html_message=msg_html,
+            send_mail('SILBERE', 'Bienvenido!', settings.EMAIL_HOST_USER, [email_user], html_message=msg_html,
                       fail_silently=False)
             return redirect('login')
         else:

@@ -2,7 +2,8 @@ from django import forms
 from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import Textarea, TextInput
+from django.forms import Textarea, TextInput, IntegerField
+
 
 class UserFormRegistration(UserCreationForm):
     class Meta:
@@ -14,6 +15,10 @@ class UserFormProfile(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('gender', 'description', 'profile_pic')
+
+        widgets = {
+            'description': TextInput(attrs={'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

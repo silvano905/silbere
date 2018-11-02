@@ -88,7 +88,7 @@ def like_tip(request):
         is_liked = False
 
     else:
-        notify.send(sender=request.user, actor=request.user, recipient=post.author, verb="le gusta tu post: ' {a} '. ".format(a=post.title),
+        notify.send(sender=request.user, actor=request.user, recipient=tip.author, verb="le gusta tu post: ' {a} '. ".format(a=tip.title),
                     nf_type='followed_by_one_user')
         LikeUserList.objects.create(user=request.user, post=tip)
         is_liked = True

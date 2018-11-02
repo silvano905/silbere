@@ -24,10 +24,9 @@
                 <label for="{{ form.text.id_for_label }}">{{ form.text }}</label>
              </div>
             <div class="form-group">
-                <label for="{{ form.picture.id_for_label }}"><input onchange="PreviewImage();" type="file" id="files" value="{{ form.picture }}"></label>
-            </div>
+                <p accept="image/*" onchange="loadFile(event)">{{ form.picture }}</p>            </div>
             <div class="form-group">
-                <img id="image" style="width: 170px; height: 200px; object-fit: cover" />
+                <img id="output" style="width: 170px; height: 200px; object-fit: cover"/>
             </div>
 
 
@@ -47,18 +46,11 @@
 
 
 
-     <script type="text/javascript">
-        document.getElementById("files").onchange = function () {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("image").src = e.target.result;
-    };
-
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
-};
-    </script>
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
 
 {% endblock %}
