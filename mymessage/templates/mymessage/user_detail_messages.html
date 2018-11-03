@@ -40,7 +40,7 @@
                     {% if request.user == mm.author%}
                         <p class='text-dark'><a href="{% url 'accounts:detail' pk=mm.author.profiles.pk %}"><img src="{{ mm.author.profiles.profile_pic.url }}" style="max-width: 30px; max-height: 30px; object-fit: contain"></a><br><strong>{{ mm.text }}</strong></p>
                         {% if mm.picture %}
-                            <img id="myImg" src="{{ mm.picture.url }}" style="width:100%;max-width:300px">
+                            <img class="myImg" src="{{ mm.picture.url }}" style="width:100%;max-width:300px">
 
                             <div id="myModal" class="modal">
                                 <span class="close">&times;</span>
@@ -51,29 +51,28 @@
                         {% endif %}
                     {% endif %}
                 </div>
-        <div class="col-6">
-            {% if user_list.user == mm.author%}
-                <p class='text-white'><a href="{% url 'accounts:detail' pk=mm.author.profiles.pk %}"><img src="{{ user_list.user.profiles.profile_pic.url }}" style="max-width: 30px; max-height: 30px; object-fit: contain"></a><br><strong>{{ mm.text }}</strong></p>
-                {% if mm.picture %}
-                    <img id="myImg" src="{{ mm.picture.url }}" style="width:100%;max-width:300px">
-                    <div id="myModal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="img01">
-                        <div id="caption"></div>
-                    </div>
+                <div class="col-6">
+                    {% if user_list.user == mm.author%}
+                        <p class='text-white'><a href="{% url 'accounts:detail' pk=mm.author.profiles.pk %}"><img src="{{ user_list.user.profiles.profile_pic.url }}" style="max-width: 30px; max-height: 30px; object-fit: contain"></a><br><strong>{{ mm.text }}</strong></p>
+                        {% if mm.picture %}
+                           <img class="myImg" src="{{ mm.picture.url }}" style="width:100%;max-width:300px">
 
-
-
-                {% endif %}
-            {% endif %}
-        </div>
+                            <div id="myModal" class="modal">
+                                <span class="close">&times;</span>
+                                <img class="modal-content" id="img01">
+                                <div id="caption"></div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
             </div>
 
 
         {% endfor %}
 
         {% if both_lists %}
-
+        <br>
+        <br>
         <div class="d-flex justify-content-center">
 
         <a href="{% url 'message:add_message' pk=user_list.pk %}" class="btn btn-primary">Responder</a>
@@ -105,15 +104,19 @@
     var modal = document.getElementById('myModal');
 
     // Get the image and insert it inside the modal - use its "alt" text as a caption
-    var img = document.getElementById('myImg');
+    let img = document.getElementsByClassName('myImg');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    img.onclick = function(){
-        modal.style.display = "block";
-        modalImg.src = this.src;
-        captionText.innerHTML = this.alt;
-    };
 
+    for (let i = 0; i < img.length; i++) {
+
+        img[i].onclick = function(){
+            console.log('image');
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+    };
+}
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 

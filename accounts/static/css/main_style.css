@@ -54,23 +54,18 @@
     margin-left: 5px;
 }
 
-.viewprofileimage{
-    max-width: 298px;
-    height: 298px;
-    object-fit: contain;
-}
 
 
 
 
 /*---------view message image-------*/
-#myImg {
+.myImg {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-#myImg:hover {opacity: 0.7;}
+.myImg:hover {opacity: 0.7;}
 
 /* The Modal (background) */
 .modal {
@@ -161,10 +156,6 @@
     body{
         font-size: 20px !important;
     }
-    .viewprofileimage{
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-    }
+
 
 }
