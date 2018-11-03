@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('berenise90silvano90/', admin.site.urls),
     url(r'^noti/', include('noti.urls', 'noti')),
     url(r'^friends/', include('friends.urls', namespace='friends')),
     url(r'^group_message/', include('message_group.urls', namespace='group_message')),

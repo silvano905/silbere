@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Textarea, TextInput
 
+
 class UserFormRegistration(UserCreationForm):
     class Meta:
         model = User

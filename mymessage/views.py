@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import MyMessage
 from itertools import chain
 from notify.signals import notify
+from django.views.generic import TemplateView, DeleteView, UpdateView, ListView
 
 User = get_user_model()
 
